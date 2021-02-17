@@ -73,6 +73,25 @@ app.post('/hello', function(req, res, next) {
   res.send(twiml.toString());
 });
 
+// Create a route to handle incoming SMS messages
+// This is where the magic happens!
+app.post('/sms', (req, res) => {
+  
+  console.log(
+    `Incoming message from ${req.body.From}: ${req.body.Body}`
+  );
+
+  // var twiml = new twilio.twiml.VoiceResponse();
+  var twiml = new twilio.twiml.MessagingResponse();
+  let str = req.body.Body.split('').reverse().join("");
+  twiml.message(`TwilioQuest rules! ${req.body.From} ${str}`)
+  res.set('Content-Type','text/xml');
+  res.send(twiml.toString());
+
+  // res.type('text/xml');
+  // res.send("<Response><Message>TwilioQuest rules</Message></Response>")
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
