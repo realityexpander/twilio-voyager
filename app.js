@@ -5,6 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var twilio = require('twilio');
 
+// Twilio : realityexpanderdev@gmail.com
+// ngrok: realityexpanderdev@gmail.com vai github
+//    https://1900e55995af.ngrok.io
+
 // Load configuration information from system environment variables.
 var TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN,
@@ -81,15 +85,20 @@ app.post('/sms', (req, res) => {
     `Incoming message from ${req.body.From}: ${req.body.Body}`
   );
 
-  // var twiml = new twilio.twiml.VoiceResponse();
-  var twiml = new twilio.twiml.MessagingResponse();
-  let str = req.body.Body.split('').reverse().join("");
-  twiml.message(`TwilioQuest rules! ${req.body.From} ${str}`)
-  res.set('Content-Type','text/xml');
-  res.send(twiml.toString());
+  // var twiml = new twilio.twiml.MessagingResponse();
+  // let str = req.body.Body.split('').reverse().join("");
+  // twiml.message(`TwilioQuest rules! ${req.body.From} ${str}`)
+  // res.set('Content-Type','text/xml');
+  // res.send(twiml.toString());
 
   // res.type('text/xml');
+  // // res.set('Content-Type','text/xml');
   // res.send("<Response><Message>TwilioQuest rules</Message></Response>")
+  res.send(`<Response><Message action='https://1900e55995af.ngrok.io/status'>TwilioQuest rules - orig message:${req.body.Body}</Message></Response>`)
+});
+
+app.post('/status', (request) => {
+  console.log(`Message SID ${request.body.MessageSid} has a status of ${request.body.MessageStatus}`);
 });
 
 // catch 404 and forward to error handler
