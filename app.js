@@ -89,19 +89,34 @@ app.post('/sms', (req, res) => {
   // let str = req.body.Body.split('').reverse().join("");
   // twiml.message(`TwilioQuest rules! ${req.body.From} ${str}`)
   // res.set('Content-Type','text/xml');
+  // // res.redirect('https://1900e55995af.ngrok.io/moreinstructions')
   // res.send(twiml.toString());
 
   // res.type('text/xml');
-  // // res.set('Content-Type','text/xml');
+  res.set('Content-Type','text/xml');
+  res.send('<Response><Redirect>https://1900e55995af.ngrok.io/moreinstructions</Redirect></Response>')
+  // res.redirect('https://1900e55995af.ngrok.io/moreinstructions')
   // res.send("<Response><Message>TwilioQuest rules</Message></Response>")
-  res.send(`<Response><Message action='https://1900e55995af.ngrok.io/status'>TwilioQuest rules - orig message:${req.body.Body}</Message></Response>`)
+  // res.send(`<Response><Message action='https://1900e55995af.ngrok.io/status'>TwilioQuest rules - orig message:${req.body.Body}</Message></Response>`)
+  // res.send('<Response><Message to="+17372329318">From:{{From}} said:{{Body}}</Message></Response>')
+});
+
+app.post('/moreinstructions', (req, res) => {
+  console.log(`Some More instructions hit`);
+  res.set('Content-Type','text/xml');
+  res.send(`
+    <Response>
+      <Message>Hi there! I am TwiML from a Redirect.</Message>
+    </Response>
+  `);
 });
 
 app.post('/status', (request) => {
   console.log(`Message SID ${request.body.MessageSid} has a status of ${request.body.MessageStatus}`);
 });
+ 
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handler 
 app.use(function(req, res, next) {
   next(createError(404));
 });
