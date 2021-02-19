@@ -16,6 +16,21 @@ function changeTab(newTab) {
     }
 }
 
+function getJson() {
+    fetch("http://localhost:3000/jsonp", { method: "GET" })
+    .then(a=>a.text())
+    .then(a => fromHtmlEntities(a))
+    .then(console.log)
+
+    // console.log({value})
+    // console.log(JSON.parse(value))
+}
+
+function parseJsonP(fromJSONP) {
+    console.log(fromJSONP)
+    // console.log(string.fromHtmlEntities())
+}
+
 // Set up handlers for tabs
 $('#messaging').on('click', function(e) { 
     e.preventDefault();
@@ -31,3 +46,9 @@ $('#flash a').on('click', function(e) {
     e.preventDefault();
     $('#flash').hide();
 });
+
+function fromHtmlEntities(string) {
+    return (string+"").replace(/&#\d+;/gm,function(s) {
+        return String.fromCharCode(s.match(/\d+/gm)[0]);
+    })
+};

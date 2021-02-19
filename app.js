@@ -35,6 +35,14 @@ app.get('/', function(req, res, next) {
   res.render('index');
 });
 
+// JSONP test
+app.get('/jsonp', function(req, res, next) {
+  // res.locals.value = '{"user":1}'
+  // res.render('jsonp');
+
+  res.send("parseJsonP({user:1})")
+});
+
 // handle a POST request to send a text message. 
 // This is sent via ajax on our home page
 app.post('/message', function(req, res, next) {
