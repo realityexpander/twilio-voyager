@@ -31,6 +31,11 @@ function parseJsonP(fromJSONP) {
     // console.log(string.fromHtmlEntities())
 }
 
+function parseJsonP2(fromJSONP) {
+    console.log("parseJsonP2")
+    console.log(fromJSONP)
+}
+
 // Set up handlers for tabs
 $('#messaging').on('click', function(e) { 
     e.preventDefault();

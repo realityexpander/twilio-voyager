@@ -40,7 +40,9 @@ app.get('/jsonp', function(req, res, next) {
   // res.locals.value = '{"user":1}'
   // res.render('jsonp');
 
-  res.send("parseJsonP({user:1})")
+  // res.send("parseJsonP({user:1})")
+  // res.render("json")
+  res.render("json2")
 });
 
 // handle a POST request to send a text message. 
